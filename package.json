@@ -1,0 +1,37 @@
+{
+  "name": "@yiiran/get-file-type",
+  "version": "1.0.1",
+  "description": "Determine the file type of 'pdf,xls,xlsx,doc,docx,ppt,pptx' according to the file arraybuffer. File suffix or file name is not required. Further more, it can avoid wrong judgment by the falsy changes of file suffix.",
+  "main": "build/bundle.js",
+  "scripts": {
+    "build": "yarn run rollup -c",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yiiran8080/getFileTypeFromArrayBuffer.git"
+  },
+  "keywords": [
+    "fileType",
+    "arraybuffer",
+    "pdf",
+    "xls",
+    "xlsx",
+    "doc",
+    "docx",
+    "ppt",
+    "pptx"
+  ],
+  "author": "git: yiiran8080",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yiiran8080/getFileTypeFromArrayBuffer/issues"
+  },
+  "homepage": "https://github.com/yiiran8080/getFileTypeFromArrayBuffer#readme",
+  "devDependencies": {
+    "@babel/core": "^7.20.12",
+    "@babel/preset-env": "^7.20.2",
+    "rollup": "^3.10.0",
+    "rollup-plugin-babel": "^4.4.0"
+  }
+}
