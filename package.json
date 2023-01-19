@@ -1,6 +1,6 @@
 {
   "name": "@yiiran/get-file-type",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Determine the file type of 'pdf,xls,xlsx,doc,docx,ppt,pptx' according to the file arraybuffer. File suffix or file name is not required. Further more, it can avoid wrong judgment by the falsy changes of file suffix.",
   "main": "build/bundle.js",
   "scripts": {

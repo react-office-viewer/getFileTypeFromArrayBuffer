@@ -1,3 +1,21 @@
+const formatMap = {
+    'pdf': ['25', '50', '44', '46'],
+    'file2003': ['d0', 'cf', '11', 'e0'],
+    'file2007': ['50', '4b', '03', '04', '14', '00', '06', '00'],
+}
+//区分xlsx,pptx,docx三种格式的buffer码。通过每个文件末尾的关键词检索判断
+const format2007Map = {
+    xlsx: ['77', '6f', '72', '6b', '73', '68', '65', '65', '74', '73', '2f'],// 转换成ascii码的含义是 worksheets/
+    docx: ['77', '6f', '72', '64', '2f'],// 转换成ascii码的含义是 word/
+    pptx: ['70', '70', '74', '2f'],// 转换成ascii码的含义是 ppt/
+}
+//区分xls,ppt,doc三种格式的buffer码，xls从文件开头判断，其他两种从文件末尾判断
+const pptFormatList = ['50', '6f', '77', '65', '72', '50', '6f', '69', '6e', '74', '20', '44', '6f', '63', '75', '6d', '65', '6e', '74'];// 转换成ascii码的含义是 PowerPoint Document
+const format2003Map = {
+    xls: ['4d', '69', '63', '72', '6f', '73', '6f', '66', '74', '20', '45', '78', '63', '65', '6c'],// 转换成ascii码的含义是 Microsoft Excel
+    doc: ['4d', '69', '63', '72', '6f', '73', '6f', '66', '74', '20', '57', '6f', '72', '64'],// 转换成ascii码的含义是 Microsoft Word
+    ppt: pptFormatList.join(',00,').split(',')
+}
 //判断文件类型
 /**
  * 
@@ -7,25 +25,6 @@ export default function getFileTypeFromArrayBuffer(arrayBuffer) {
     try {
         if (Object.prototype.toString.call(arrayBuffer) !== '[object ArrayBuffer]') {
             throw new TypeError("The provided value is not a valid ArrayBuffer type.")
-        }
-
-        const formatMap = {
-            'pdf': ['25', '50', '44', '46'],
-            'file2003': ['d0', 'cf', '11', 'e0'],
-            'file2007': ['50', '4b', '03', '04', '14', '00', '06', '00'],
-        }
-        //区分xlsx,pptx,docx三种格式的buffer码。通过每个文件末尾的关键词检索判断
-        const format2007Map = {
-            xlsx: ['77', '6f', '72', '6b', '73', '68', '65', '65', '74', '73', '2f'],// 转换成ascii码的含义是 worksheets/
-            docx: ['77', '6f', '72', '64', '2f'],// 转换成ascii码的含义是 word/
-            pptx: ['70', '70', '74', '2f'],// 转换成ascii码的含义是 ppt/
-        }
-        //区分xls,ppt,doc三种格式的buffer码，xls从文件开头判断，其他两种从文件末尾判断
-        let pptFormatList = ['50', '6f', '77', '65', '72', '50', '6f', '69', '6e', '74', '20', '44', '6f', '63', '75', '6d', '65', '6e', '74'];// 转换成ascii码的含义是 PowerPoint Document
-        const format2003Map = {
-            xls: ['4d', '69', '63', '72', '6f', '73', '6f', '66', '74', '20', '45', '78', '63', '65', '6c'],// 转换成ascii码的含义是 Microsoft Excel
-            doc: ['4d', '69', '63', '72', '6f', '73', '6f', '66', '74', '20', '57', '6f', '72', '64'],// 转换成ascii码的含义是 Microsoft Word
-            ppt: pptFormatList.join(',00,').split(',')
         }
         let arr = new Uint8Array(arrayBuffer);
         let str_8 = getSliceArrTo16(arr, 0, 8).join('');
